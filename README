@@ -1,9 +1,10 @@
 ckeditor integration for moodle 2
-(c) 2011, didier Belot <electrolinux@gmail.com>
+
+(c) 2011, didier Belot <electrolinux AT gmail DOT com>
 
 This is beta code, be carefull before using it on a production server
 
 Install:
 copy/move moodle-ckeditor to moodle/lib/editor/ckeditor
-and dd this in config.php:
+and add this in config.php:
 $CFG->texteditors='ckeditor,tinymce,htmlarea';
