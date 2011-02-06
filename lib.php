@@ -95,7 +95,6 @@ class ckeditor_texteditor extends texteditor {
                     'elements' => $elementid,
                     'relative_urls' => false,
                     'document_base_url' => $CFG->httpswwwroot,
-                    'content_css' => $contentcss,
 		    'language' => $lang,
 		    'toolbar' => array(
 			array('Source','-','Cut','Copy','Paste','PasteText','PasteFromWord'),
