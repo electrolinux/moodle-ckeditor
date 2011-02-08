@@ -22,12 +22,14 @@
  */
 
 M.editor_ckeditor = M.editor_ckeditor || {};
+M.editor_ckeditor.emoticons = M.editor_ckeditor.emoticons || {};
 
 M.editor_ckeditor.editor_options = M.editor_ckeditor.options || {};
 M.editor_ckeditor.filepicker_options = M.editor_ckeditor.filepicker_options || {};
 
 M.editor_ckeditor.init_editor = function(Y, editorid, options) {
     M.editor_ckeditor.editor_options[editorid] = options;
+    M.editor_ckeditor.emoticons = options.emoticons;
     CKEDITOR.replace(editorid,options);
 };
 

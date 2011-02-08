@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 
 class ckeditor_texteditor extends texteditor {
     /** @var string active version - directory name */
-    public $version = '3.5';
+    public $version = '3.5.1';
 
     public function supported_by_browser() {
         if (check_browser_version('MSIE', 6)) {
@@ -99,7 +99,7 @@ class ckeditor_texteditor extends texteditor {
 		    'toolbar' => array(
 			array('Source','-','Cut','Copy','Paste','PasteText','PasteFromWord'),
 			array('Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'),
-			array('Table','HorizontalRule','Smiley','SpecialChar','PageBreak'),
+			array('Table','HorizontalRule','Emoticon','SpecialChar','PageBreak'),
 			'/',
 			array('Styles','Format'),
 			array('Bold','Italic','Underline'),
@@ -112,7 +112,8 @@ class ckeditor_texteditor extends texteditor {
 		    'entities_latin' => false,
 		    'stylesCombo_stylesSet' => 'moodle',
 		    'contentsCss' => array('lib/editor/ckeditor/ckeditor/3.5/contents.css',), //, 'css/admin/ckeditor.css'),
-
+		    'emoticons' => $this->get_emoticons(),
+		    'extraPlugins' => 'moodleemoticons',
                   );
 
 
@@ -120,10 +121,43 @@ class ckeditor_texteditor extends texteditor {
             if (isset($options['maxfiles']) and $options['maxfiles'] != 0) {
 		    //$params['file_browser_callback'] = "M.editor_ckeditor.filepicker";
 		$params['filepicker']='M.editor_ckeditor.filepicker';
-		$params['extraPlugins']='moodlefilebrowser';
+		$params['extraPlugins'].=',moodlefilebrowser';
             }
         }
 
         return $params;
     }
+
+    protected function get_emoticons()
+    {
+        global $CFG, $PAGE, $OUTPUT;
+	// based on the tinymce moodleemoticon plugin by David Mudrak
+	    
+	$emoticonmanager = get_emoticon_manager();;
+	$stringmanager = get_string_manager();
+	$emoticons = $emoticonmanager->get_emoticons();
+	;
+	// this is tricky - we must somehow include the information about the original
+	// emoticon text so that we can replace the image back with it on editor save.
+	// so we are going to encode the index of the emoticon. this will break when the
+	// admin changes the mapping table while the user has the editor opened
+	// but I am not able to come with better solution at the moment :-/
+	$index = 0;
+	$_emoticons = array();
+	foreach ($emoticons as $emoticon) {
+	    $txt = $emoticon->text;
+	    $img = $OUTPUT->render(
+		$emoticonmanager->prepare_renderable_emoticon($emoticon, array('class' => 'emoticon emoticon-index-'.$index)));
+	    if ($stringmanager->string_exists($emoticon->altidentifier, $emoticon->altcomponent)) {
+		$alt = get_string($emoticon->altidentifier, $emoticon->altcomponent);
+	    } else {
+		$alt = '';
+	    }
+	    $_emoticons[]=array('txt' => $txt, 'img' => $img, 'alt' => $alt, 'idx' => $index);
+	    $index++;
+	}
+	//var_dump($_emoticons);
+	return $_emoticons;
+    }
 }
+
