@@ -28,6 +28,15 @@
 
 // don't really know what to do with string : as is (using ckeditor lang files) or
 // as tinymce integration ???
-// anyway, as pointed out by Geoffrey Rolland on moodle forum, this part is needed :-)
+// anyway, as pointed out by Geoffrey Rolland on moodle forum, at least the pluginname is needed :-)
 $string['pluginname'] = 'CKEditor HTML editor';
-
+$string['toolbar'] = 'Toolbar definition';
+$string['toolbarhelp'] = "Separates toolbars with a single '/' on a line, groups of buttons with a newline, buttons with a comma, use '-' as a spacer";
+$string['styles'] = 'Styles combo definition';
+$string['styleshelp'] = 'These style definitions are for the Style combo; be carefull when editing, any typo will kill the combo ! :-(';
+$string['styleset'] = 'StyleSet filename';
+$string['stylesethelp'] = 'Filename of your customized Styles combo definition (a javascript file)';
+$string['stylesetname'] = 'StyleSet name';
+$string['stylesetnamehelp'] = 'Name of your customized Styles combo definition: CKEDITOR.styleSet.add( "Name" )';
+$string['editorcss'] = 'Editor stylesheet';
+$string['editorcsshelp'] = 'Additional stylesheet filename to load in editor';

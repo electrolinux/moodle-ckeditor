@@ -20,7 +20,6 @@
  * @copyright  2010 didier Belot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 M.editor_ckeditor = M.editor_ckeditor || {};
 M.editor_ckeditor.emoticons = M.editor_ckeditor.emoticons || {};
 
@@ -30,6 +29,18 @@ M.editor_ckeditor.filepicker_options = M.editor_ckeditor.filepicker_options || {
 M.editor_ckeditor.init_editor = function(Y, editorid, options) {
     M.editor_ckeditor.editor_options[editorid] = options;
     M.editor_ckeditor.emoticons = options.emoticons;
+    if (Y.JSON && Y.JSON.parse) {
+	    // cool
+	    var toolbar = options && options.toolbar;
+	    if (toolbar) {
+		    options.toolbar = Y.JSON.parse(toolbar);
+	    }
+    }
+    else {
+	    alert('No Y.JSON defined...');
+    }
+    //alert(M.editor_ckeditor.var_dump(options.toolbar));
+    M.editor_ckeditor.Y = Y;
     CKEDITOR.replace(editorid,options);
 };
 
@@ -66,4 +77,19 @@ M.editor_ckeditor.filepicker = function(params) {
         M.core_filepicker.show(Y, options);
     });
 };
+
+M.editor_ckeditor.var_dump = function(v,l) {
+	var s='',x;
+	l = l || 0;
+	for(x in v) {
+		s += x + " : ";
+		if(typeof v[x] == 'object') {
+			s += M.editor_ckeditor.var_dump(v[x],l+1);
+		} else {
+			s += v[x];
+		}
+		s += "\n";
+	}
+	return s;
+}
 
