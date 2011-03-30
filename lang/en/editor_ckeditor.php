@@ -40,3 +40,5 @@ $string['stylesetname'] = 'StyleSet name';
 $string['stylesetnamehelp'] = 'Name of your customized Styles combo definition: CKEDITOR.styleSet.add( "Name" )';
 $string['editorcss'] = 'Editor stylesheet';
 $string['editorcsshelp'] = 'Additional stylesheet filename to load in editor';
+$string['skin']='yui3';
+$string['skinhelp']='One of "kama","office2003","v2" or "yui3" (default) (yes, a selector would be better, but what if you want to make your own skin ?)';

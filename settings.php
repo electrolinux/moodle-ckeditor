@@ -53,9 +53,8 @@ if ($ADMIN->fulltree) {
     $settings->add( $editorcss );
 
     $skin =  new admin_setting_configtext('editor_ckeditor/skin',
-        'editor skin','',
-        //get_string('stylesetname','editor_ckeditor'), get_string('stylesetnamehelp','editor_ckeditor'),
-        'default');
+        get_string('skin','editor_ckeditor'), get_string('skinhelp','editor_ckeditor'),
+        'yui3');
     $settings->add( $skin );
 
     $extraplugins =  new admin_setting_configtext('editor_ckeditor/extraplugins',
